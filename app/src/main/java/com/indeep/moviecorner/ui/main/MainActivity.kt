@@ -1,7 +1,8 @@
-package com.indeep.moviecorner
+package com.indeep.moviecorner.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.indeep.moviecorner.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
