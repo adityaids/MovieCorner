@@ -1,4 +1,6 @@
 package com.indeep.core.data.domain.model
 
-class GenreModel {
-}
+data class GenreModel(
+    val id: Int,
+    val genre: String
+)

@@ -1,4 +1,7 @@
 package com.indeep.core.data.domain.model
 
-class ReviewModel {
-}
+data class ReviewModel(
+    val movieId: String,
+    val author: String,
+    val content: String
+)
