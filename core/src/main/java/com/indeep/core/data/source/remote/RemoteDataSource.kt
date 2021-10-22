@@ -1,4 +1,7 @@
 package com.indeep.core.data.source.remote
 
-class RemoteDataSource {
+import com.indeep.core.data.source.remote.network.ApiService
+
+class RemoteDataSource(private val apiService: ApiService) {
+
 }

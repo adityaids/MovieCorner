@@ -1,7 +1,6 @@
 package com.indeep.core.data.domain.model
 
-data class GenreModel(
+data class GenreListModel(
     val id: Int,
-    val movieId: Int,
     val name: String
 )
