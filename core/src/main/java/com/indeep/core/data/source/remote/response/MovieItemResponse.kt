@@ -29,8 +29,5 @@ data class MovieItemResponse(
 	val genreIds: List<Int>,
 
 	@field:SerializedName("vote_average")
-	val voteAverage: Int,
-
-	@field:SerializedName("vote_count")
-	val voteCount: Int
+	val voteAverage: Float
 )

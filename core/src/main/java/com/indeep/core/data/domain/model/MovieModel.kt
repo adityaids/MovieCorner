@@ -9,6 +9,5 @@ data class MovieModel(
     val backdropPath: String,
     val releaseDate: String,
     val genreIds: List<Int>,
-    val voteAverage: Int,
-    val voteCount: Int
+    val voteAverage: Float
 )

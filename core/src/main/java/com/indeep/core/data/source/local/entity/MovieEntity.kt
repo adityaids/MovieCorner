@@ -33,8 +33,5 @@ data class MovieEntity(
     val genreIds: List<Int>,
 
     @ColumnInfo(name = "vote_average")
-    val voteAverage: Int,
-
-    @ColumnInfo(name = "vote_count")
-    val voteCount: Int
+    val voteAverage: Float
 )

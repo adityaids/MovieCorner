@@ -28,9 +28,6 @@ data class MovieDetailResponse(
 	@field:SerializedName("poster_path")
 	val posterPath: String,
 
-	@field:SerializedName("genres")
-	val genres: List<GenreResponse>,
-
 	@field:SerializedName("vote_count")
 	val voteCount: Int,
 
@@ -42,4 +39,7 @@ data class MovieDetailResponse(
 
 	@field:SerializedName("tagline")
 	val tagline: String,
+
+	@field:SerializedName("genres")
+	val genres: List<GenreResponse>
 )

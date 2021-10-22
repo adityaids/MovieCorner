@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MovieCorner</string>
+    <string name="rating">Rating</string>
 </resources>
