@@ -37,7 +37,7 @@ interface ApiService {
     ): GenreListResponse
 
     @GET("movie/{movie_id}/videos")
-    suspend fun getYoutubeTrailer(
+    suspend fun getMovieTrailer(
         @Path("movie_id") movieId: Int,
         @Query("api_key") key: String,
         @Query("language") language: String
