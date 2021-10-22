@@ -9,6 +9,6 @@ data class GenreEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Int,
-    @ColumnInfo(name = "genre")
-    val genre: String
+    @ColumnInfo(name = "name")
+    val name: String
 )
