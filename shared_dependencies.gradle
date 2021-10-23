@@ -7,6 +7,7 @@ dependencies{
     androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     implementation "androidx.multidex:multidex:$multidex_version"
+    implementation 'androidx.paging:paging-runtime-ktx:3.0.1'
 
     //koin
     implementation "io.insert-koin:koin-core:$koin_version"

@@ -29,13 +29,6 @@ interface ApiService {
         @Query("language") language: String
     ): GenreListResponse
 
-    @GET("movie/{id}")
-    suspend fun getDetailMovie(
-        @Path("id") movieId: Int,
-        @Query("api_key") key: String,
-        @Query("language") language: String
-    ): GenreListResponse
-
     @GET("movie/{movie_id}/videos")
     suspend fun getMovieTrailer(
         @Path("movie_id") movieId: Int,

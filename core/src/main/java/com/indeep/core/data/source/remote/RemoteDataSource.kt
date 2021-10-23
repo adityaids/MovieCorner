@@ -12,10 +12,6 @@ class RemoteDataSource(private val apiService: ApiService) {
 
     }
 
-    fun getDetailMovie(movieId: Int){
-
-    }
-
     fun getAllGenre(){
 
     }
