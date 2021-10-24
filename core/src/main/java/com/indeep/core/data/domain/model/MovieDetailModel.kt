@@ -7,7 +7,5 @@ import com.indeep.core.data.source.local.entity.ReviewEntity
 data class MovieDetailModel(
     val movie: MovieEntity,
 
-    val listGenre: List<GenreEntity>,
-
-    val listReview: List<ReviewEntity>
+    val listGenre: List<GenreEntity>
 )

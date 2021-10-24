@@ -8,8 +8,5 @@ data class MovieDetailEntity(
     val movie: MovieEntity,
 
     @Relation(parentColumn = "movie_id", entityColumn = "movie_id")
-    val listGenre: List<GenreEntity>,
-
-    @Relation(parentColumn = "movie_id", entityColumn = "movie_id")
-    val listReview: List<ReviewEntity>
+    val listGenre: List<GenreEntity>
 )

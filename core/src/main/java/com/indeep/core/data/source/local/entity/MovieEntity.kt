@@ -29,9 +29,6 @@ data class MovieEntity(
     @ColumnInfo(name = "release_date")
     val releaseDate: String,
 
-    @ColumnInfo(name = "genre_ids")
-    val genreIds: List<Int>,
-
     @ColumnInfo(name = "vote_average")
     val voteAverage: Float
 )

@@ -2,6 +2,7 @@ package com.indeep.core.data.source.remote.network
 
 import com.indeep.core.data.source.remote.response.GenreListResponse
 import com.indeep.core.data.source.remote.response.MovieListResponse
+import com.indeep.core.data.source.remote.response.ReviewResponse
 import com.indeep.core.data.source.remote.response.TrailerListResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -35,4 +36,11 @@ interface ApiService {
         @Query("api_key") key: String,
         @Query("language") language: String
     ): TrailerListResponse
+
+    @GET("movie/{movieId}/reviews")
+    suspend fun getMovieReview(
+        @Path("movieId") movieId: Int,
+        @Query("api_key") key: String,
+        @Query("language") language: String
+    ): ReviewResponse
 }
