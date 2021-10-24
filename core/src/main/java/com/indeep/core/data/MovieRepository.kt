@@ -145,4 +145,7 @@ class MovieRepository(
 
         }.asFlow()
 
+    override fun getGenreName(genreId: Int): GenreListModel =
+        DataMapper.mapGenreEntitiesToDomain(localDataSource.getGenreName(genreId))
+
 }

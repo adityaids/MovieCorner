@@ -133,4 +133,9 @@ object DataMapper {
             input.rating,
             input.createdAt
         )
+
+    fun mapGenreEntitiesToDomain(input: GenreListEntity): GenreListModel = GenreListModel(
+        id = input.id,
+        name = input.name
+    )
 }

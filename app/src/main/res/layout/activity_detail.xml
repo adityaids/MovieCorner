@@ -7,23 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".ui.detail.DetailActivity">
 
-    <com.google.android.exoplayer2.ui.StyledPlayerView
-        android:id="@+id/exo_player"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:show_buffering="when_playing"
-        android:visibility="gone"/>
-
     <ImageView
         android:id="@+id/img_backdrop"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_200sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:background="@color/white"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_140sdp"
+        android:layout_marginTop="@dimen/_120sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/background_grey"/>
 
     <ImageView
         android:id="@+id/img_poster"
@@ -31,31 +32,35 @@
         android:layout_height="@dimen/_120sdp"
         android:layout_marginStart="@dimen/_4sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_backdrop"
+        app:layout_constraintTop_toTopOf="@id/view"
+        app:layout_constraintBottom_toBottomOf="@id/view"
         tools:background="@color/black"/>
 
-    <ImageButton
-        android:id="@+id/play_btn"
-        android:layout_width="@dimen/_88sdp"
-        android:layout_height="@dimen/_88sdp"
-        android:background="@drawable/ic_play_circle_outline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/img_backdrop"/>
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:fontFamily="sans-serif-light"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18ssp"
+        android:ems="9"
+        app:layout_constraintStart_toEndOf="@id/img_poster"
+        app:layout_constraintTop_toTopOf="@id/img_poster"
+        tools:text="Wonder Woman 1975" />
 
     <TextView
         android:id="@+id/tv_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintHorizontal_bias="0.1"
-        android:fontFamily="@font/roboto_condensed_bold"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:fontFamily="sans-serif-light"
+        android:textStyle="bold"
         android:textColor="@color/white"
-        android:textSize="@dimen/_18ssp"
-        app:layout_constraintStart_toEndOf="@id/img_poster"
-        app:layout_constraintTop_toBottomOf="@id/img_backdrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Wonder Woman 1975"/>
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="Rating" />
 </androidx.constraintlayout.widget.ConstraintLayout>

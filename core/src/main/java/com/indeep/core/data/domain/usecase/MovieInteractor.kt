@@ -21,4 +21,7 @@ class MovieInteractor(private val movieRepository: IMovieRepository): MovieUseca
 
     override fun getMovieReview(movieId: Int): Flow<Resource<PagedList<ReviewModel>>> =
         movieRepository.getMovieReview(movieId)
+
+    override fun getGenreName(genreId: Int): GenreListModel =
+        movieRepository.getGenreName(genreId)
 }

@@ -25,6 +25,9 @@ interface MovieDao {
     @Query("SELECT * FROM table_review WHERE movie_id = :movieId")
     fun getMovieReview(movieId: Int): DataSource.Factory<Int, ReviewEntity>
 
+    @Query("SELECT * FROM TABLE_LIST_GENRE WHERE id = :genreId")
+    fun getGenreName(genreId: Int): GenreListEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovie(movieEntity: List<MovieEntity>)
 

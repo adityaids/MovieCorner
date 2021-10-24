@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">MovieCorner</string>
     <string name="rating">Rating</string>
+    <string name="popular">Popular</string>
+    <string name="genre">Genre</string>
 </resources>

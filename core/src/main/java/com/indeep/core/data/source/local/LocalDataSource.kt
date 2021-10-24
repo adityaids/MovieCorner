@@ -10,6 +10,7 @@ class LocalDataSource(private val movieDao: MovieDao) {
     fun getMovieByGenre(genreId: Int): DataSource.Factory<Int, MovieDetailEntity> = movieDao.getMovieByGenre(genreId)
     fun getTrailerById(id: Int): Flow<List<TrailerEntity>> = movieDao.getTrailerById(id)
     fun getAllGenre(): Flow<List<GenreListEntity>> = movieDao.getAllGenre()
+    fun getGenreName(genreId: Int): GenreListEntity = movieDao.getGenreName(genreId)
     fun getMovieReview(movieId: Int): DataSource.Factory<Int, ReviewEntity> = movieDao.getMovieReview(movieId)
     suspend fun insertMovie(movieEntity: List<MovieEntity>) = movieDao.insertMovie(movieEntity)
     suspend fun insertAllGenre(genreListEntity: List<GenreListEntity>) = movieDao.insertAllGenre(genreListEntity)
