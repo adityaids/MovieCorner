@@ -7,5 +7,6 @@ class Constant {
         const val TOKEN_KEY = BuildConfig.BASE_API
         const val LANGUAGE = "en-US"
         const val SORT_BY = "popularity.desc"
+        const val SITE_URL = "https://www.youtube.com/watch?v="
     }
 }
