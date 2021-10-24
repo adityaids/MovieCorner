@@ -10,7 +10,7 @@ class MovieInteractor(private val movieRepository: IMovieRepository): MovieUseca
     override fun getAllMovie(): Flow<Resource<PagedList<MovieDetailModel>>> =
         movieRepository.getAllMovie()
 
-    override fun getMovieByGenre(genreId: Int): Flow<Resource<PagedList<MovieModel>>> =
+    override fun getMovieByGenre(genreId: Int): Flow<Resource<PagedList<MovieDetailModel>>> =
         movieRepository.getMovieByGenre(genreId)
 
     override fun getTrailerById(movieId: Int): Flow<Resource<List<TrailerModel>>> =
@@ -19,9 +19,6 @@ class MovieInteractor(private val movieRepository: IMovieRepository): MovieUseca
     override fun getAllGenre(): Flow<Resource<List<GenreListModel>>> =
         movieRepository.getAllGenre()
 
-    override fun getDetailMovie(movieId: Int): Flow<Resource<List<MovieModel>>> =
-        movieRepository.getDetailMovie(movieId)
-
-    override fun getMovieReview(movieId: Int): Flow<Resource<PagedList<List<ReviewModel>>>> =
+    override fun getMovieReview(movieId: Int): Flow<Resource<PagedList<ReviewModel>>> =
         movieRepository.getMovieReview(movieId)
 }

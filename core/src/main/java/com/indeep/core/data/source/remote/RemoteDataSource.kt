@@ -15,13 +15,12 @@ class RemoteDataSource(private val apiService: ApiService) {
         key: String,
         language: String,
         sort: String
-    ): Flow<ApiResponse<List<MovieItemResponse>>>{
+    ): Flow<ApiResponse<MovieListResponse>>{
         return flow {
             try {
                 val response = apiService.getPopularMovie(key, language, sort)
-                val dataArray = response.results
-                if (dataArray.isNotEmpty()){
-                    emit(ApiResponse.Success(response.results))
+                if (response.results.isNotEmpty()){
+                    emit(ApiResponse.Success(response))
                 } else {
                     emit(ApiResponse.Empty)
                 }
@@ -37,13 +36,12 @@ class RemoteDataSource(private val apiService: ApiService) {
         language: String,
         sort: String,
         genreId: Int
-    ): Flow<ApiResponse<List<MovieItemResponse>>>{
+    ): Flow<ApiResponse<MovieListResponse>>{
         return flow {
             try {
                 val response = apiService.getMovieByGenre(key, language, sort, genreId)
-                val dataArray = response.results
-                if (dataArray.isNotEmpty()){
-                    emit(ApiResponse.Success(response.results))
+                if (response.results.isNotEmpty()){
+                    emit(ApiResponse.Success(response))
                 } else {
                     emit(ApiResponse.Empty)
                 }
@@ -57,13 +55,12 @@ class RemoteDataSource(private val apiService: ApiService) {
     suspend fun getAllGenre(
         key: String,
         language: String
-    ):Flow<ApiResponse<List<GenreResponse>>>{
+    ):Flow<ApiResponse<GenreListResponse>>{
         return flow {
             try {
                 val response = apiService.getAllGenre(key, language)
-                val dataArray = response.listGenre
-                if (dataArray.isNotEmpty()){
-                    emit(ApiResponse.Success(response.listGenre))
+                if (response.listGenre.isNotEmpty()){
+                    emit(ApiResponse.Success(response))
                 } else {
                     emit(ApiResponse.Empty)
                 }
@@ -78,13 +75,12 @@ class RemoteDataSource(private val apiService: ApiService) {
         movieId: Int,
         key: String,
         language: String
-    ): Flow<ApiResponse<List<TrailerItemResponse>>>{
+    ): Flow<ApiResponse<TrailerListResponse>>{
         return flow {
             try {
                 val response = apiService.getMovieTrailer(movieId, key, language)
-                val dataArray = response.results
-                if (dataArray.isNotEmpty()){
-                    emit(ApiResponse.Success(response.results))
+                if (response.results.isNotEmpty()){
+                    emit(ApiResponse.Success(response))
                 } else {
                     emit(ApiResponse.Empty)
                 }
@@ -99,13 +95,12 @@ class RemoteDataSource(private val apiService: ApiService) {
         movieId: Int,
         key: String,
         language: String
-    ): Flow<ApiResponse<List<ReviewItemResponse>>>{
+    ): Flow<ApiResponse<ReviewResponse>>{
         return flow {
             try {
                 val response = apiService.getMovieReview(movieId, key, language)
-                val dataArray = response.results
-                if (dataArray.isNotEmpty()){
-                    emit(ApiResponse.Success(response.results))
+                if (response.results.isNotEmpty()){
+                    emit(ApiResponse.Success(response))
                 } else {
                     emit(ApiResponse.Empty)
                 }

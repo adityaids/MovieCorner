@@ -17,14 +17,10 @@ interface MovieDao {
     fun getMovieByGenre(genreId: Int): DataSource.Factory<Int, MovieDetailEntity>
 
     @Query("SELECT * FROM table_trailer WHERE movie_id = :movieId")
-    fun getTrailerById(movieId: Int): Flow<TrailerEntity>
+    fun getTrailerById(movieId: Int): Flow<List<TrailerEntity>>
 
     @Query("SELECT * FROM table_list_genre")
-    fun getAllGenre(): Flow<GenreListEntity>
-
-    @Transaction
-    @Query("SELECT * FROM table_movie WHERE movie_id = :movieId")
-    fun getDetailMovie(movieId: Int): Flow<MovieDetailEntity>
+    fun getAllGenre(): Flow<List<GenreListEntity>>
 
     @Query("SELECT * FROM table_review WHERE movie_id = :movieId")
     fun getMovieReview(movieId: Int): DataSource.Factory<Int, ReviewEntity>

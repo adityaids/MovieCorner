@@ -12,9 +12,7 @@ import com.indeep.core.data.source.local.entity.MovieDetailEntity
 import com.indeep.core.data.source.local.entity.MovieEntity
 import com.indeep.core.data.source.remote.RemoteDataSource
 import com.indeep.core.data.source.remote.network.ApiResponse
-import com.indeep.core.data.source.remote.response.MovieItemResponse
-import com.indeep.core.data.source.remote.response.MovieListResponse
-import com.indeep.core.util.Constant
+import com.indeep.core.data.source.remote.response.*
 import com.indeep.core.util.Constant.Companion.LANGUAGE
 import com.indeep.core.util.Constant.Companion.SORT_BY
 import com.indeep.core.util.Constant.Companion.TOKEN_KEY
@@ -28,7 +26,7 @@ class MovieRepository(
 ):IMovieRepository {
 
     override fun getAllMovie(): Flow<Resource<PagedList<MovieDetailModel>>> =
-        object : NetworkBoundSource<PagedList<MovieDetailModel>, List<MovieItemResponse>>(){
+        object : NetworkBoundSource<PagedList<MovieDetailModel>, MovieListResponse>(){
             override fun loadFromDB(): Flow<PagedList<MovieDetailModel>> {
                 val movieList = localDataSource.getAllMovie().map { DataMapper.mapMovieDetailEntityToDomain(it) }
                 val config = PagedList.Config.Builder()
@@ -42,38 +40,109 @@ class MovieRepository(
             override fun shouldFetch(data: PagedList<MovieDetailModel>?): Boolean =
                 data.isNullOrEmpty()
 
-            override suspend fun createCall(): Flow<ApiResponse<List<MovieItemResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<MovieListResponse>> {
                 return remoteDataSource.getPopularMovie(TOKEN_KEY, LANGUAGE, SORT_BY)
             }
 
-            override suspend fun saveCallResult(data: List<MovieItemResponse>) {
-                val movie: List<MovieDetailEntity> = DataMapper.mapListMovieDetailResponseToEntities(data)
-                val movieList = ArrayList<MovieEntity>()
-                for (dataMovie in movie) {
-                    movieList.add(dataMovie.movie)
+            override suspend fun saveCallResult(data: MovieListResponse) {
+                val movieList: List<MovieDetailEntity> = DataMapper.mapListMovieDetailResponseToEntities(data)
+                val mMovie = ArrayList<MovieEntity>()
+                for (dataMovie in movieList) {
+                    mMovie.add(dataMovie.movie)
                 }
-                localDataSource.insertMovie(movieList)
+                localDataSource.insertMovie(mMovie)
             }
         }.asFlow()
 
-    override fun getMovieByGenre(genreId: Int): Flow<Resource<PagedList<MovieModel>>> {
-        TODO("Not yet implemented")
-    }
+    override fun getMovieByGenre(genreId: Int): Flow<Resource<PagedList<MovieDetailModel>>> =
+        object : NetworkBoundSource<PagedList<MovieDetailModel>, MovieListResponse>(){
+            override fun loadFromDB(): Flow<PagedList<MovieDetailModel>> {
+                val movieList = localDataSource.getAllMovie().map { DataMapper.mapMovieDetailEntityToDomain(it) }
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                return LivePagedListBuilder(movieList, config).build().asFlow()
+            }
 
-    override fun getTrailerById(movieId: Int): Flow<Resource<List<TrailerModel>>> {
-        TODO("Not yet implemented")
-    }
+            override fun shouldFetch(data: PagedList<MovieDetailModel>?): Boolean =
+                data.isNullOrEmpty()
 
-    override fun getAllGenre(): Flow<Resource<List<GenreListModel>>> {
-        TODO("Not yet implemented")
-    }
+            override suspend fun createCall(): Flow<ApiResponse<MovieListResponse>> =
+                remoteDataSource.getMovieByGenre(TOKEN_KEY, LANGUAGE, SORT_BY, genreId)
 
-    override fun getDetailMovie(movieId: Int): Flow<Resource<List<MovieModel>>> {
-        TODO("Not yet implemented")
-    }
 
-    override fun getMovieReview(movieId: Int): Flow<Resource<PagedList<List<ReviewModel>>>> {
-        TODO("Not yet implemented")
-    }
+            override suspend fun saveCallResult(data: MovieListResponse) {
+                val movieList: List<MovieDetailEntity> = DataMapper.mapListMovieDetailResponseToEntities(data)
+                val mMovie = ArrayList<MovieEntity>()
+                for (dataMovie in movieList) {
+                    mMovie.add(dataMovie.movie)
+                    localDataSource.insertGenreForMovie(dataMovie.listGenre)
+                }
+                localDataSource.insertMovie(mMovie)
+            }
+
+        }.asFlow()
+
+    override fun getTrailerById(movieId: Int): Flow<Resource<List<TrailerModel>>> =
+        object : NetworkBoundSource<List<TrailerModel>, TrailerListResponse>(){
+            override fun loadFromDB(): Flow<List<TrailerModel>> =
+                localDataSource.getTrailerById(movieId).map { DataMapper.mapTrailerEntitiesToDomain(it) }
+
+            override fun shouldFetch(data: List<TrailerModel>?): Boolean =
+                data.isNullOrEmpty()
+
+            override suspend fun createCall(): Flow<ApiResponse<TrailerListResponse>> =
+                remoteDataSource.getMovieTrailer(movieId, TOKEN_KEY, LANGUAGE)
+
+            override suspend fun saveCallResult(data: TrailerListResponse) =
+                localDataSource.insertTrailer(DataMapper.mapTrailerResponseToEntities(data))
+
+
+        }.asFlow()
+
+    override fun getAllGenre(): Flow<Resource<List<GenreListModel>>> =
+        object : NetworkBoundSource<List<GenreListModel>, GenreListResponse>(){
+            override fun loadFromDB(): Flow<List<GenreListModel>> =
+                localDataSource.getAllGenre().map { DataMapper.mapAllGenreEntitiesToDomain(it) }
+
+            override fun shouldFetch(data: List<GenreListModel>?): Boolean =
+                data.isNullOrEmpty()
+
+            override suspend fun createCall(): Flow<ApiResponse<GenreListResponse>> =
+                remoteDataSource.getAllGenre(TOKEN_KEY, LANGUAGE)
+
+
+            override suspend fun saveCallResult(data: GenreListResponse) {
+                localDataSource.insertAllGenre(DataMapper.mapAllGenreResponseToEntities(data))
+            }
+
+        }.asFlow()
+
+    override fun getMovieReview(movieId: Int): Flow<Resource<PagedList<ReviewModel>>> =
+        object : NetworkBoundSource<PagedList<ReviewModel>, ReviewResponse>(){
+            override fun loadFromDB(): Flow<PagedList<ReviewModel>> {
+                val reviewList = localDataSource.getMovieReview(movieId)
+                    .map{ DataMapper.mapReviewEntityToDomain(it) }
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                return LivePagedListBuilder(reviewList, config).build().asFlow()
+            }
+
+            override fun shouldFetch(data: PagedList<ReviewModel>?): Boolean =
+                data.isNullOrEmpty()
+
+            override suspend fun createCall(): Flow<ApiResponse<ReviewResponse>> =
+                remoteDataSource.getMovieReview(movieId, TOKEN_KEY, LANGUAGE)
+
+            override suspend fun saveCallResult(data: ReviewResponse) {
+                localDataSource.insertReview(DataMapper.mapReviewResponseToEntity(data))
+            }
+
+        }.asFlow()
 
 }

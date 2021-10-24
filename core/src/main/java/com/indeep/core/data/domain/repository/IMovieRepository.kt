@@ -7,9 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface IMovieRepository {
     fun getAllMovie(): Flow<Resource<PagedList<MovieDetailModel>>>
-    fun getMovieByGenre(genreId: Int): Flow<Resource<PagedList<MovieModel>>>
+    fun getMovieByGenre(genreId: Int): Flow<Resource<PagedList<MovieDetailModel>>>
     fun getTrailerById(movieId: Int): Flow<Resource<List<TrailerModel>>>
     fun getAllGenre(): Flow<Resource<List<GenreListModel>>>
-    fun getDetailMovie(movieId: Int): Flow<Resource<List<MovieModel>>>
-    fun getMovieReview(movieId: Int): Flow<Resource<PagedList<List<ReviewModel>>>>
+    fun getMovieReview(movieId: Int): Flow<Resource<PagedList<ReviewModel>>>
 }
