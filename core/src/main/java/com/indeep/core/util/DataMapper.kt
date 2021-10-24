@@ -9,11 +9,12 @@ import com.indeep.core.data.source.local.entity.MovieDetailEntity
 import com.indeep.core.data.source.local.entity.MovieEntity
 import com.indeep.core.data.source.local.entity.TrailerEntity
 import com.indeep.core.data.source.remote.response.GenreListResponse
+import com.indeep.core.data.source.remote.response.MovieItemResponse
 import com.indeep.core.data.source.remote.response.MovieListResponse
 import com.indeep.core.data.source.remote.response.TrailerListResponse
 
 object DataMapper {
-    fun mapListMovieDetailResponseToEntities(input: MovieListResponse): List<MovieDetailEntity>{
+    fun mapListMovieDetailResponseToEntities(input: List<MovieItemResponse>): List<MovieDetailEntity>{
         TODO("Not yet implemented")
     }
 

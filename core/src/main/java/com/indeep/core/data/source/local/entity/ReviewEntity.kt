@@ -3,14 +3,7 @@ package com.indeep.core.data.source.local.entity
 import androidx.room.*
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "table_review",
-    primaryKeys = ["id", "movie_id"],
-    foreignKeys = [ForeignKey(entity = MovieEntity::class,
-        parentColumns = ["movie_id"],
-        childColumns = ["movie_id"])],
-    indices = [Index(value = ["id"]),
-        Index(value = ["movie_id"])]
-)
+@Entity(tableName = "table_review")
 class ReviewEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")

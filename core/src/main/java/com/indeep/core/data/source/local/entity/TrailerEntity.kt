@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "table_trailer")
 data class TrailerEntity(
+    @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: String,
     @ColumnInfo(name = "movie_id")
     val movieId: Int,
     @ColumnInfo(name = "site")

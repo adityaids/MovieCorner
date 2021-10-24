@@ -11,7 +11,6 @@ import androidx.room.*
         Index(value = ["movie_id"])]
 )
 data class GenreEntity(
-    @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Int,
     @ColumnInfo(name = "movie_id")

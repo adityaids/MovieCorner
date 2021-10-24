@@ -7,13 +7,16 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
+    @Transaction
     @Query("SELECT * FROM table_movie")
-    fun getAllMovie(): DataSource.Factory<Int, MovieEntity>
+    fun getAllMovie(): DataSource.Factory<Int, MovieDetailEntity>
 
-    @Query("SELECT * FROM table_movie WHERE genre_ids = :genreId")
-    fun getMovieByGenre(genreId: Int): DataSource.Factory<Int, MovieEntity>
+    @Transaction
+    @Query("SELECT *"
+            +" FROM table_movie CROSS JOIN table_genre ON table_movie.movie_id = table_genre.movie_id WHERE id = :genreId")
+    fun getMovieByGenre(genreId: Int): DataSource.Factory<Int, MovieDetailEntity>
 
-    @Query("SELECT "+"`key`"+" FROM table_trailer WHERE movie_id LIKE = :movieId")
+    @Query("SELECT * FROM table_trailer WHERE movie_id = :movieId")
     fun getTrailerById(movieId: Int): Flow<TrailerEntity>
 
     @Query("SELECT * FROM table_list_genre")
