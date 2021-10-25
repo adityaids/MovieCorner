@@ -8,6 +8,7 @@ import com.indeep.core.data.domain.repository.IMovieRepository
 import com.indeep.core.data.source.NetworkBoundSource
 import com.indeep.core.data.source.Resource
 import com.indeep.core.data.source.local.LocalDataSource
+import com.indeep.core.data.source.local.entity.GenreEntity
 import com.indeep.core.data.source.local.entity.MovieDetailEntity
 import com.indeep.core.data.source.local.entity.MovieEntity
 import com.indeep.core.data.source.remote.RemoteDataSource
@@ -30,9 +31,9 @@ class MovieRepository(
             override fun loadFromDB(): Flow<PagedList<MovieDetailModel>> {
                 val movieList = localDataSource.getAllMovie().map { DataMapper.mapMovieDetailEntityToDomain(it) }
                 val config = PagedList.Config.Builder()
-                    .setEnablePlaceholders(false)
+                    .setEnablePlaceholders(true)
                     .setInitialLoadSizeHint(4)
-                    .setPageSize(4)
+                    .setPageSize(500)
                     .build()
                 return LivePagedListBuilder(movieList, config).build().asFlow()
             }
@@ -47,9 +48,14 @@ class MovieRepository(
             override suspend fun saveCallResult(data: MovieListResponse) {
                 val movieList: List<MovieDetailEntity> = DataMapper.mapListMovieDetailResponseToEntities(data)
                 val mMovie = ArrayList<MovieEntity>()
+                val genreList = ArrayList<GenreEntity>()
                 for (dataMovie in movieList) {
                     mMovie.add(dataMovie.movie)
+                    for (genre in dataMovie.listGenre) {
+                        genreList.addAll(dataMovie.listGenre)
+                    }
                 }
+                localDataSource.insertGenreForMovie(genreList)
                 localDataSource.insertMovie(mMovie)
             }
         }.asFlow()
@@ -59,7 +65,7 @@ class MovieRepository(
             override fun loadFromDB(): Flow<PagedList<MovieDetailModel>> {
                 val movieList = localDataSource.getAllMovie().map { DataMapper.mapMovieDetailEntityToDomain(it) }
                 val config = PagedList.Config.Builder()
-                    .setEnablePlaceholders(false)
+                    .setEnablePlaceholders(true)
                     .setInitialLoadSizeHint(4)
                     .setPageSize(4)
                     .build()

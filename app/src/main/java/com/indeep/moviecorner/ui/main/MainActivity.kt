@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.GridLayout
+import androidx.core.view.get
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.indeep.core.data.domain.model.GenreListModel
 import com.indeep.core.data.source.Resource
 import com.indeep.moviecorner.R
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by inject()
     private val movieAdapter = MovieAdapter()
+    private val listData = ArrayList<GenreListModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,25 @@ class MainActivity : AppCompatActivity() {
             setHasFixedSize(false)
             adapter = movieAdapter
         }
+
+        viewModel.getPopularMovie.observe(this,{
+            if (it != null) {
+                when (it) {
+                    is Resource.Loading -> binding.pgsBar.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        movieAdapter.submitList(it.data)
+                        movieAdapter.notifyDataSetChanged()
+                        binding.pgsBar.visibility = View.GONE
+                    }
+                    is Resource.Error -> {
+                        MessageDialogFragment.newInstance(
+                            R.string.error,
+                            it.message
+                        ).show(supportFragmentManager, it.message)
+                    }
+                }
+            }
+        })
         viewModel.getAllGenre.observe(this, {
             if (it != null) {
                 when (it) {
@@ -46,10 +68,18 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+
+        binding.chipGenre.setOnCheckedChangeListener { group, checkedId ->
+            binding.pgsBar.visibility = View.VISIBLE
+            val position = checkedId - 1
+            binding.tvType.text = listData[position].name
+            getMovieByGenre(listData[position].id)
+        }
     }
 
     private fun setChip(data: List<GenreListModel>?){
         if (data != null && data.isNotEmpty()) {
+            listData.addAll(data)
             for (genre in data){
                 val chip = Chip(this)
                 chip.text = genre.name
@@ -59,5 +89,26 @@ class MainActivity : AppCompatActivity() {
                 binding.chipGenre.addView(chip)
             }
         }
+    }
+
+    private fun getMovieByGenre(genreId: Int){
+        viewModel.getMovieByGenre(genreId).observe(this,{
+            if (it != null) {
+                when (it) {
+                    is Resource.Loading -> binding.pgsBar.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        movieAdapter.submitList(it.data)
+                        movieAdapter.notifyDataSetChanged()
+                        binding.pgsBar.visibility = View.GONE
+                    }
+                    is Resource.Error -> {
+                        MessageDialogFragment.newInstance(
+                            R.string.error,
+                            it.message
+                        ).show(supportFragmentManager, it.message)
+                    }
+                }
+            }
+        })
     }
 }

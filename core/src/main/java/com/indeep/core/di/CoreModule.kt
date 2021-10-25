@@ -28,7 +28,7 @@ val databaseModule = module {
             androidContext(),
             MovieDb::class.java, "movieapp.db"
         ).fallbackToDestructiveMigration()
-            .openHelperFactory(factory)
+            //.openHelperFactory(factory)
             .build()
     }
 }
