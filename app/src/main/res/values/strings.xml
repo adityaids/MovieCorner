@@ -4,4 +4,6 @@
     <string name="popular">Popular</string>
     <string name="genre">Genre</string>
     <string name="trailer">Trailer</string>
+    <string name="backdrop_image">backdrop_image</string>
+    <string name="poster_image">poster_image</string>
 </resources>
