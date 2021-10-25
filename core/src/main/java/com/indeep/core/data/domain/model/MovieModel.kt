@@ -1,5 +1,9 @@
 package com.indeep.core.data.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class MovieModel(
     val movieId: Int,
     val title: String,
@@ -9,4 +13,4 @@ data class MovieModel(
     val backdropPath: String,
     val releaseDate: String,
     val voteAverage: Float
-)
+): Parcelable

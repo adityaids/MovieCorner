@@ -39,8 +39,8 @@ object DataMapper {
         val movieList = ArrayList<MovieDetailEntity>()
         input.map {
             val movie = MovieDetailEntity(
-                movie = it.movie,
-                listGenre = it.listGenre
+                movie = mapMovieDomainToEntity(it.movie),
+                listGenre = mapGenreMovieToDomain(it.listGenre)
             )
             movieList.add(movie)
         }
@@ -49,8 +49,8 @@ object DataMapper {
 
     fun mapMovieDetailEntityToDomain(input: MovieDetailEntity): MovieDetailModel{
         return MovieDetailModel(
-            input.movie,
-            input.listGenre
+            mapMovieEntitiyToDomain(input.movie),
+            mapGenreMovieEntitiesToDomain(input.listGenre)
         )
     }
 
@@ -138,4 +138,54 @@ object DataMapper {
         id = input.id,
         name = input.name
     )
+
+    fun mapMovieEntitiyToDomain(input: MovieEntity): MovieModel{
+        return MovieModel(
+            input.movieId,
+            input.title,
+            input.description,
+            input.video,
+            input.posterPath,
+            input.backdropPath,
+            input.releaseDate,
+            input.voteAverage
+        )
+    }
+
+    fun mapGenreMovieEntitiesToDomain(input: List<GenreEntity>): List<GenreModel>{
+        val listGenre = ArrayList<GenreModel>()
+        input.map {
+            val genre = GenreModel(
+                id = it.id,
+                movieId = it.movieId
+            )
+            listGenre.add(genre)
+        }
+        return listGenre
+    }
+
+    fun mapMovieDomainToEntity(input: MovieModel): MovieEntity{
+        return MovieEntity(
+            input.movieId,
+            input.title,
+            input.description,
+            input.video,
+            input.posterPath,
+            input.backdropPath,
+            input.releaseDate,
+            input.voteAverage
+        )
+    }
+
+    fun mapGenreMovieToDomain(input: List<GenreModel>): List<GenreEntity>{
+        val listGenre = ArrayList<GenreEntity>()
+        input.map {
+            val genre = GenreEntity(
+                id = it.id,
+                movieId = it.movieId
+            )
+            listGenre.add(genre)
+        }
+        return listGenre
+    }
 }

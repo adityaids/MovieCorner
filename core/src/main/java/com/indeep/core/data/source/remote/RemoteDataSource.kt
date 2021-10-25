@@ -10,7 +10,9 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 class RemoteDataSource(private val apiService: ApiService) {
-
+    companion object{
+        const val NETWORK_PAGE_SIZE = 25
+    }
     suspend fun getPopularMovie(
         key: String,
         language: String,

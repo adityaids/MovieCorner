@@ -7,6 +7,7 @@
     android:background="@color/background_player">
 
     <Button
+        android:id="@+id/btn_close"
         android:layout_width="@dimen/_32sdp"
         android:layout_height="@dimen/_32sdp"
         android:layout_marginEnd="@dimen/_4sdp"
@@ -21,7 +22,8 @@
         android:insetBottom="0dp"
         app:iconGravity="textStart"/>
 
-    <com.google.android.exoplayer2.ui.StyledPlayerView
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/player_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_200sdp"
         app:layout_constraintStart_toStartOf="parent"

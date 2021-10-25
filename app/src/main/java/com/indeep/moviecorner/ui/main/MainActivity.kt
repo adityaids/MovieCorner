@@ -1,5 +1,6 @@
 package com.indeep.moviecorner.ui.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,6 +14,8 @@ import com.indeep.core.data.source.Resource
 import com.indeep.moviecorner.R
 import com.indeep.moviecorner.databinding.ActivityMainBinding
 import com.indeep.moviecorner.ui.adapter.MovieAdapter
+import com.indeep.moviecorner.ui.detail.DetailActivity
+import com.indeep.moviecorner.ui.detail.DetailActivity.Companion.EXTRA_DATA
 import com.indeep.moviecorner.ui.dialog.MessageDialogFragment
 import org.koin.android.ext.android.inject
 
@@ -74,6 +77,13 @@ class MainActivity : AppCompatActivity() {
             val position = checkedId - 1
             binding.tvType.text = listData[position].name
             getMovieByGenre(listData[position].id)
+        }
+
+        movieAdapter.onItemClick = {
+            val intent = Intent(this@MainActivity, DetailActivity::class.java).apply {
+                putExtra(EXTRA_DATA, it)
+            }
+            startActivity(intent)
         }
     }
 

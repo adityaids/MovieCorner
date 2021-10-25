@@ -55,8 +55,8 @@ class MovieRepository(
                         genreList.addAll(dataMovie.listGenre)
                     }
                 }
-                localDataSource.insertGenreForMovie(genreList)
                 localDataSource.insertMovie(mMovie)
+                localDataSource.insertGenreForMovie(genreList)
             }
         }.asFlow()
 
