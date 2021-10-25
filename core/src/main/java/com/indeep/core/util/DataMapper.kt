@@ -110,7 +110,7 @@ object DataMapper {
         val reviewList = ArrayList<ReviewEntity>()
         input.results.map {
             val review = ReviewEntity(
-                id = it.id,
+                id = 0,
                 movieId = input.movieId,
                 author = it.author,
                 content = it.content,

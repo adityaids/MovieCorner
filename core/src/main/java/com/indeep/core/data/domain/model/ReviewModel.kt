@@ -1,7 +1,7 @@
 package com.indeep.core.data.domain.model
 
 data class ReviewModel(
-    val id: String,
+    var id: Int? = 0,
     val movieId: Int,
     val author: String,
     val content: String,

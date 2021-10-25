@@ -9,5 +9,6 @@
     <color name="background_color">#070d2d</color>
     <color name="background_secondary">#1E2847</color>
     <color name="background_player">#ED0C0C0C</color>
+    <color name="text_sub">#E6D3D3D3</color>
     <color name="rate">#e6e200</color>
 </resources>

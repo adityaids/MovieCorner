@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 class ReviewEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id: String,
+    val id: Int?,
 
     @ColumnInfo(name = "movie_id")
     val movieId: Int,

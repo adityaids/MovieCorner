@@ -12,8 +12,7 @@ interface MovieDao {
     fun getAllMovie(): DataSource.Factory<Int, MovieDetailEntity>
 
     @Transaction
-    @Query("SELECT *"
-            +" FROM table_movie CROSS JOIN table_genre ON table_movie.movie_id = table_genre.movie_id WHERE id = :genreId")
+    @Query("SELECT * FROM table_movie WHERE movie_id = :genreId")
     fun getMovieByGenre(genreId: Int): DataSource.Factory<Int, MovieDetailEntity>
 
     @Query("SELECT * FROM table_trailer WHERE movie_id = :movieId")

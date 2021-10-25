@@ -15,6 +15,19 @@
         <item name="android:windowBackground">@color/background_color</item>
     </style>
 
+    <style name="fullscreen" parent ="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@color/background_color</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+    </style>
+
     <style name="ShapeAppearanceOverlay.MyApp.Button.Circle" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
