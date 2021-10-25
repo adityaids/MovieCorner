@@ -1,5 +1,6 @@
 package com.indeep.core.data
 
+import android.util.Log
 import androidx.lifecycle.asFlow
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -146,7 +147,8 @@ class MovieRepository(
                 remoteDataSource.getMovieReview(movieId, TOKEN_KEY, LANGUAGE)
 
             override suspend fun saveCallResult(data: ReviewResponse) {
-                localDataSource.insertReview(DataMapper.mapReviewResponseToEntity(data))
+                val review = DataMapper.mapReviewResponseToEntity(data)
+                localDataSource.insertReview(review)
             }
 
         }.asFlow()

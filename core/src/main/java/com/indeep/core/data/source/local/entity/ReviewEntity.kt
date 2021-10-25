@@ -5,13 +5,11 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "table_review")
 class ReviewEntity(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    val id: Int?,
 
     @ColumnInfo(name = "movie_id")
     val movieId: Int,
 
+    @PrimaryKey
     @ColumnInfo(name = "author")
     val author: String,
 
@@ -20,7 +18,7 @@ class ReviewEntity(
     val content: String,
 
     @ColumnInfo(name = "avatar_path")
-    val avatarPath: String,
+    var avatarPath: String? = "",
 
     @ColumnInfo(name = "rating")
     val rating: Double,

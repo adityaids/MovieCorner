@@ -18,6 +18,7 @@ import com.indeep.moviecorner.databinding.ActivityDetailBinding
 import com.indeep.moviecorner.ui.dialog.MessageDialogFragment
 import org.koin.android.ext.android.inject
 import android.util.SparseArray
+import androidx.recyclerview.widget.LinearLayoutManager
 import at.huber.youtubeExtractor.VideoMeta
 
 import at.huber.youtubeExtractor.YtFile
@@ -26,6 +27,7 @@ import at.huber.youtubeExtractor.YouTubeExtractor
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.indeep.moviecorner.ui.adapter.ReviewAdapter
 
 
 class DetailActivity : AppCompatActivity() {
@@ -40,6 +42,7 @@ class DetailActivity : AppCompatActivity() {
     private var playWhenReady = true
     private var currentWindow = 0
     private var playbackPosition = 0L
+    private val reviewAdapter = ReviewAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +51,11 @@ class DetailActivity : AppCompatActivity() {
 
         val data = intent.getParcelableExtra<MovieDetailModel>(EXTRA_DATA) as MovieDetailModel
 
+        binding.rvReview.apply {
+            layoutManager = LinearLayoutManager(this@DetailActivity)
+            setHasFixedSize(false)
+            adapter = reviewAdapter
+        }
         binding.tvTitle.text = data.movie.title
         Glide.with(this)
             .load(BuildConfig.IMAGE_BASE_URL+data.movie.backdropPath)
@@ -75,6 +83,23 @@ class DetailActivity : AppCompatActivity() {
             }
         })
 
+        viewModel.getReview(data.movie.movieId).observe(this,{
+            if (it != null) {
+                when (it) {
+                    is Resource.Loading -> null
+                    is Resource.Success -> {
+                        reviewAdapter.submitList(it.data)
+                    }
+                    is Resource.Error -> {
+                        MessageDialogFragment.newInstance(
+                            R.string.error,
+                            it.message
+                        ).show(supportFragmentManager, it.message)
+                    }
+                }
+            }
+        })
+
         binding.btnPlay.setOnClickListener{
             binding.player.root.visibility = View.VISIBLE
             startPlayer()
@@ -83,6 +108,7 @@ class DetailActivity : AppCompatActivity() {
             binding.player.root.visibility = View.GONE
             releasePlayer()
         }
+        binding.btnBack.setOnClickListener { this.finish() }
     }
 
     @SuppressLint("StaticFieldLeak")

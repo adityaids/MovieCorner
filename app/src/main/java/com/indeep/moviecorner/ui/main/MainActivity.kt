@@ -89,14 +89,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setChip(data: List<GenreListModel>?){
         if (data != null && data.isNotEmpty()) {
-            listData.addAll(data)
-            for (genre in data){
-                val chip = Chip(this)
-                chip.text = genre.name
-                chip.isCheckable = true
-                //chip.setTextColor(resources.getColor(R.color.white))
-                chip.setChipBackgroundColorResource(R.color.secondary)
-                binding.chipGenre.addView(chip)
+            if (data != listData) {
+                listData.addAll(data)
+                for (genre in data){
+                    val chip = Chip(this)
+                    chip.text = genre.name
+                    chip.isCheckable = true
+                    //chip.setTextColor(resources.getColor(R.color.white))
+                    chip.setChipBackgroundColorResource(R.color.secondary)
+                    binding.chipGenre.addView(chip)
+                }
             }
         }
     }

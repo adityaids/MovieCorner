@@ -110,7 +110,6 @@ object DataMapper {
         val reviewList = ArrayList<ReviewEntity>()
         input.results.map {
             val review = ReviewEntity(
-                id = 0,
                 movieId = input.movieId,
                 author = it.author,
                 content = it.content,
@@ -125,7 +124,6 @@ object DataMapper {
 
     fun mapReviewEntityToDomain(input: ReviewEntity): ReviewModel =
         ReviewModel(
-            input.id,
             input.movieId,
             input.author,
             input.content,
