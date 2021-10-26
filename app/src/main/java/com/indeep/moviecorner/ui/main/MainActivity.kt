@@ -4,13 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.GridLayout
-import androidx.core.view.get
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.indeep.core.data.domain.model.GenreListModel
-import com.indeep.core.data.source.Resource
+import com.indeep.core.data.vo.Resource
 import com.indeep.moviecorner.R
 import com.indeep.moviecorner.databinding.ActivityMainBinding
 import com.indeep.moviecorner.ui.adapter.MovieAdapter
@@ -43,10 +40,10 @@ class MainActivity : AppCompatActivity() {
                     is Resource.Loading -> binding.pgsBar.visibility = View.VISIBLE
                     is Resource.Success -> {
                         movieAdapter.submitList(it.data)
-                        movieAdapter.notifyDataSetChanged()
                         binding.pgsBar.visibility = View.GONE
                     }
                     is Resource.Error -> {
+                        binding.pgsBar.visibility = View.GONE
                         MessageDialogFragment.newInstance(
                             R.string.error,
                             it.message
@@ -80,6 +77,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         movieAdapter.onItemClick = {
+            binding.pgsBar.visibility = View.VISIBLE
             val intent = Intent(this@MainActivity, DetailActivity::class.java).apply {
                 putExtra(EXTRA_DATA, it)
             }
@@ -95,7 +93,6 @@ class MainActivity : AppCompatActivity() {
                     val chip = Chip(this)
                     chip.text = genre.name
                     chip.isCheckable = true
-                    //chip.setTextColor(resources.getColor(R.color.white))
                     chip.setChipBackgroundColorResource(R.color.secondary)
                     binding.chipGenre.addView(chip)
                 }
@@ -104,16 +101,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getMovieByGenre(genreId: Int){
+        movieAdapter.submitList(null)
         viewModel.getMovieByGenre(genreId).observe(this,{
             if (it != null) {
                 when (it) {
                     is Resource.Loading -> binding.pgsBar.visibility = View.VISIBLE
                     is Resource.Success -> {
                         movieAdapter.submitList(it.data)
-                        movieAdapter.notifyDataSetChanged()
                         binding.pgsBar.visibility = View.GONE
                     }
                     is Resource.Error -> {
+                        binding.pgsBar.visibility = View.GONE
                         MessageDialogFragment.newInstance(
                             R.string.error,
                             it.message

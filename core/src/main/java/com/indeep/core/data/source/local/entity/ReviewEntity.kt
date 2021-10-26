@@ -5,11 +5,13 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "table_review")
 class ReviewEntity(
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    val id: String,
 
     @ColumnInfo(name = "movie_id")
     val movieId: Int,
 
-    @PrimaryKey
     @ColumnInfo(name = "author")
     val author: String,
 

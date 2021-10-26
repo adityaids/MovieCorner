@@ -11,7 +11,6 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.util.Util
 import com.indeep.core.BuildConfig
 import com.indeep.core.data.domain.model.MovieDetailModel
-import com.indeep.core.data.source.Resource
 import com.indeep.core.util.Constant
 import com.indeep.moviecorner.R
 import com.indeep.moviecorner.databinding.ActivityDetailBinding
@@ -27,6 +26,7 @@ import at.huber.youtubeExtractor.YouTubeExtractor
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.indeep.core.data.vo.Resource
 import com.indeep.moviecorner.ui.adapter.ReviewAdapter
 
 
@@ -69,7 +69,7 @@ class DetailActivity : AppCompatActivity() {
         viewModel.getTrailer(data.movie.movieId).observe(this,{
             if (it != null) {
                 when (it) {
-                    is Resource.Loading -> null
+                    is Resource.Loading -> Log.d("loadTrailer", it.message.toString())
                     is Resource.Success -> {
                         extractYoutubeUrl(Constant.SITE_URL + it.data?.get(0)?.key)
                     }
@@ -86,7 +86,7 @@ class DetailActivity : AppCompatActivity() {
         viewModel.getReview(data.movie.movieId).observe(this,{
             if (it != null) {
                 when (it) {
-                    is Resource.Loading -> null
+                    is Resource.Loading -> Log.d("loadTrailer", it.message.toString())
                     is Resource.Success -> {
                         reviewAdapter.submitList(it.data)
                     }
@@ -108,7 +108,7 @@ class DetailActivity : AppCompatActivity() {
             binding.player.root.visibility = View.GONE
             releasePlayer()
         }
-        binding.btnBack.setOnClickListener { this.finish() }
+        binding.btnBack.setOnClickListener { back() }
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -175,4 +175,11 @@ class DetailActivity : AppCompatActivity() {
         player = null
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
+    private fun back(){
+        onBackPressed()
+    }
 }

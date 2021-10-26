@@ -5,8 +5,11 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.indeep.core.BuildConfig
 import com.indeep.core.data.domain.model.MovieDetailModel
 import com.indeep.core.data.domain.model.ReviewModel
+import com.indeep.moviecorner.R
 import com.indeep.moviecorner.databinding.ReviewListItemBinding
 
 class ReviewAdapter: PagedListAdapter<ReviewModel, ReviewAdapter.ReviewViewHolder>(DIFF_CALLBACK) {
@@ -40,6 +43,10 @@ class ReviewAdapter: PagedListAdapter<ReviewModel, ReviewAdapter.ReviewViewHolde
             binding.tvRating.text = data.rating.toString()
             binding.tvReview.text = data.content
             binding.tvCreated.text = data.createdAt
+            Glide.with(itemView.context)
+                .load(BuildConfig.IMAGE_BASE_URL+data.avatarPath)
+                .placeholder(R.drawable.ic_error_image)
+                .into(binding.imgAuthor)
         }
 
     }

@@ -1,13 +1,12 @@
 package com.indeep.core.data
 
-import android.util.Log
 import androidx.lifecycle.asFlow
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.indeep.core.data.domain.model.*
 import com.indeep.core.data.domain.repository.IMovieRepository
 import com.indeep.core.data.source.NetworkBoundSource
-import com.indeep.core.data.source.Resource
+import com.indeep.core.data.vo.Resource
 import com.indeep.core.data.source.local.LocalDataSource
 import com.indeep.core.data.source.local.entity.GenreEntity
 import com.indeep.core.data.source.local.entity.MovieDetailEntity
@@ -74,7 +73,7 @@ class MovieRepository(
             }
 
             override fun shouldFetch(data: PagedList<MovieDetailModel>?): Boolean =
-                data.isNullOrEmpty()
+                true
 
             override suspend fun createCall(): Flow<ApiResponse<MovieListResponse>> =
                 remoteDataSource.getMovieByGenre(TOKEN_KEY, LANGUAGE, SORT_BY, genreId)

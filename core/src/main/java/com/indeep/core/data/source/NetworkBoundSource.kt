@@ -1,6 +1,7 @@
 package com.indeep.core.data.source
 
 import com.indeep.core.data.source.remote.network.ApiResponse
+import com.indeep.core.data.vo.Resource
 import kotlinx.coroutines.flow.*
 
 abstract class NetworkBoundSource<ResultType, RequestType> {

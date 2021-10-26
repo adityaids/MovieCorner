@@ -3,7 +3,7 @@ package com.indeep.core.data.domain.usecase
 import androidx.paging.PagedList
 import com.indeep.core.data.domain.model.*
 import com.indeep.core.data.domain.repository.IMovieRepository
-import com.indeep.core.data.source.Resource
+import com.indeep.core.data.vo.Resource
 import kotlinx.coroutines.flow.Flow
 
 class MovieInteractor(private val movieRepository: IMovieRepository): MovieUsecase {
