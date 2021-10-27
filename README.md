@@ -24,6 +24,7 @@ You require the latest Android Studio Arctic Fox 2020.3.1 patch 3 (stable channe
 - Uses [Paging2](https://developer.android.com/topic/libraries/architecture/paging)
 - Uses [Retrofit](https://square.github.io/retrofit)
 - Uses [ExoPlayer](https://exoplayer.dev)
+- Uses[Room Persistence](https://developer.android.com/training/data-storage/room)
 
 ### API keys
 
