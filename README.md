@@ -2,11 +2,9 @@
 
 [![adityaids](https://circleci.com/gh/adityaids/MovieCorner.svg?style=svg)](https://circleci.com/gh/adityaids/MovieCorner)
 
-<img src="https://github.com/adityaids/MovieCorner/blob/master/2.gif" width="250" height="250"/>
+![MovieCorner Preview](<img src="https://github.com/adityaids/MovieCorner/blob/master/1.gif" width="50%" height="50%"/>)
 
-![MovieCorner Preview](img src="https://github.com/adityaids/MovieCorner/blob/master/1.gif" width="250" height="250"/>)
-
-![MovieCorner Preview](<img src="https://github.com/adityaids/MovieCorner/blob/master/2.gif" width="250" height="250"/>)
+![MovieCorner Preview](<img src="https://github.com/adityaids/MovieCorner/blob/master/2.gif" width="50%" height="50%"/>)
 
 Simple project using TMDB API to study and play with some android components, architecture and tools for Android development.
 
