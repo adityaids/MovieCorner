@@ -13,7 +13,9 @@ interface MovieDao {
     fun getAllMovie(): DataSource.Factory<Int, MovieDetailEntity>
 
     @Transaction
-    @Query("SELECT * FROM table_movie WHERE movie_id = :genreId")
+    @Query("""
+        SELECT * FROM table_movie INNER JOIN table_genre ON table_genre.movie_id = table_movie.movie_id WHERE table_genre.id = :genreId
+    """)
     fun getMovieByGenre(genreId: Int): DataSource.Factory<Int, MovieDetailEntity>
 
     @Query("SELECT * FROM table_trailer WHERE movie_id = :movieId")

@@ -7,6 +7,6 @@ data class MovieDetailEntity(
     @Embedded
     val movie: MovieEntity,
 
-    @Relation(parentColumn = "movie_id", entityColumn = "movie_id")
+    @Relation(parentColumn = "movie_id", entityColumn = "movie_id", entity = GenreEntity::class)
     val listGenre: List<GenreEntity>
 )

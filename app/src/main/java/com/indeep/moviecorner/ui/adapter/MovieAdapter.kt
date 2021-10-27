@@ -1,5 +1,6 @@
 package com.indeep.moviecorner.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
@@ -39,6 +40,7 @@ class MovieAdapter: PagedListAdapter<MovieDetailModel, MovieAdapter.MovieViewHol
         private val binding: MovieListItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: MovieDetailModel){
+            Log.d("listMovie", data.movie.title)
             binding.tvTitle.text = data.movie.title
             binding.tvRating.text = data.movie.voteAverage.toString()
             binding.ratingBar.rating = data.movie.voteAverage / 2

@@ -26,7 +26,7 @@ import at.huber.youtubeExtractor.YouTubeExtractor
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.indeep.core.data.vo.Resource
+import com.indeep.core.vo.Resource
 import com.indeep.moviecorner.ui.adapter.ReviewAdapter
 
 
@@ -86,7 +86,7 @@ class DetailActivity : AppCompatActivity() {
         viewModel.getReview(data.movie.movieId).observe(this,{
             if (it != null) {
                 when (it) {
-                    is Resource.Loading -> Log.d("loadTrailer", it.message.toString())
+                    is Resource.Loading -> Log.d("LoadReview", it.message.toString())
                     is Resource.Success -> {
                         reviewAdapter.submitList(it.data)
                     }
@@ -108,7 +108,7 @@ class DetailActivity : AppCompatActivity() {
             binding.player.root.visibility = View.GONE
             releasePlayer()
         }
-        binding.btnBack.setOnClickListener { back() }
+        binding.btnBack.setOnClickListener { this.finish() }
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -159,7 +159,7 @@ class DetailActivity : AppCompatActivity() {
             }
     }
 
-    private fun buildMediaSource(): MediaSource? {
+    private fun buildMediaSource(): MediaSource {
         val dataSourceFactory = DefaultDataSourceFactory(this, "sample")
         return ProgressiveMediaSource.Factory(dataSourceFactory)
             .createMediaSource(Uri.parse(trailerLink))
@@ -177,9 +177,6 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-    }
-
-    private fun back(){
-        onBackPressed()
+        finish()
     }
 }

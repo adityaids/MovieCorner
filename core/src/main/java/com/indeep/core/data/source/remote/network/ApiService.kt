@@ -21,7 +21,7 @@ interface ApiService {
         @Query("api_key") key: String,
         @Query("language") language: String,
         @Query("sort_by") sortBy: String,
-        @Query("with_genre") genreId: Int
+        @Query("with_genres") genreId: Int
     ): MovieListResponse
 
     @GET("genre/movie/list")

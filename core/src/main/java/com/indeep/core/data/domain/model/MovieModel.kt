@@ -9,8 +9,8 @@ data class MovieModel(
     val title: String,
     val description: String,
     val video: Boolean,
-    val posterPath: String,
-    val backdropPath: String,
+    var posterPath: String? = "",
+    var backdropPath: String? = "",
     val releaseDate: String,
     val voteAverage: Float
 ): Parcelable

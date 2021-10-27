@@ -2,7 +2,7 @@ package com.indeep.core.data.domain.repository
 
 import androidx.paging.PagedList
 import com.indeep.core.data.domain.model.*
-import com.indeep.core.data.vo.Resource
+import com.indeep.core.vo.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface IMovieRepository {

@@ -6,7 +6,7 @@ import androidx.paging.PagedList
 import com.indeep.core.data.domain.model.*
 import com.indeep.core.data.domain.repository.IMovieRepository
 import com.indeep.core.data.source.NetworkBoundSource
-import com.indeep.core.data.vo.Resource
+import com.indeep.core.vo.Resource
 import com.indeep.core.data.source.local.LocalDataSource
 import com.indeep.core.data.source.local.entity.GenreEntity
 import com.indeep.core.data.source.local.entity.MovieDetailEntity
@@ -63,7 +63,7 @@ class MovieRepository(
     override fun getMovieByGenre(genreId: Int): Flow<Resource<PagedList<MovieDetailModel>>> =
         object : NetworkBoundSource<PagedList<MovieDetailModel>, MovieListResponse>(){
             override fun loadFromDB(): Flow<PagedList<MovieDetailModel>> {
-                val movieList = localDataSource.getAllMovie().map { DataMapper.mapMovieDetailEntityToDomain(it) }
+                val movieList = localDataSource.getMovieByGenre(genreId).map { DataMapper.mapMovieDetailEntityToDomain(it) }
                 val config = PagedList.Config.Builder()
                     .setEnablePlaceholders(true)
                     .setInitialLoadSizeHint(4)
@@ -82,11 +82,13 @@ class MovieRepository(
             override suspend fun saveCallResult(data: MovieListResponse) {
                 val movieList: List<MovieDetailEntity> = DataMapper.mapListMovieDetailResponseToEntities(data)
                 val mMovie = ArrayList<MovieEntity>()
+                val genreList = ArrayList<GenreEntity>()
                 for (dataMovie in movieList) {
                     mMovie.add(dataMovie.movie)
-                    localDataSource.insertGenreForMovie(dataMovie.listGenre)
+                    genreList.addAll(dataMovie.listGenre)
                 }
                 localDataSource.insertMovie(mMovie)
+                localDataSource.insertGenreForMovie(genreList)
             }
 
         }.asFlow()

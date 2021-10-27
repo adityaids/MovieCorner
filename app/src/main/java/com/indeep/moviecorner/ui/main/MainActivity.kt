@@ -3,11 +3,12 @@ package com.indeep.moviecorner.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.chip.Chip
 import com.indeep.core.data.domain.model.GenreListModel
-import com.indeep.core.data.vo.Resource
+import com.indeep.core.vo.Resource
 import com.indeep.moviecorner.R
 import com.indeep.moviecorner.databinding.ActivityMainBinding
 import com.indeep.moviecorner.ui.adapter.MovieAdapter
@@ -81,6 +82,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, DetailActivity::class.java).apply {
                 putExtra(EXTRA_DATA, it)
             }
+            binding.pgsBar.visibility = View.GONE
             startActivity(intent)
         }
     }
@@ -102,6 +104,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getMovieByGenre(genreId: Int){
         movieAdapter.submitList(null)
+        movieAdapter.notifyDataSetChanged()
         viewModel.getMovieByGenre(genreId).observe(this,{
             if (it != null) {
                 when (it) {

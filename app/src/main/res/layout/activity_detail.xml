@@ -178,6 +178,21 @@
                 tools:listitem="@layout/review_list_item"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/tv_no_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_90sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/no_review_yet_for_this_movie"
+        android:textColor="@color/text_sub"
+        android:fontFamily="@font/roboto_medium"
+        android:textSize="@dimen/_14ssp"
+        android:visibility="gone"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

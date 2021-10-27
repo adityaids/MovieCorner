@@ -14,8 +14,8 @@ object DataMapper {
                 movieResponse.title,
                 movieResponse.description,
                 movieResponse.video,
-                movieResponse.posterPath,
-                movieResponse.backdropPath,
+                movieResponse.posterPath?:"",
+                movieResponse.backdropPath?:"",
                 movieResponse.releaseDate,
                 movieResponse.voteAverage
             )
@@ -33,18 +33,6 @@ object DataMapper {
             moveList.add(movieDetail)
         }
         return moveList
-    }
-
-    fun mapListMovieDetailDomainToEntities(input: List<MovieDetailModel>): List<MovieDetailEntity> {
-        val movieList = ArrayList<MovieDetailEntity>()
-        input.map {
-            val movie = MovieDetailEntity(
-                movie = mapMovieDomainToEntity(it.movie),
-                listGenre = mapGenreMovieToDomain(it.listGenre)
-            )
-            movieList.add(movie)
-        }
-        return movieList
     }
 
     fun mapMovieDetailEntityToDomain(input: MovieDetailEntity): MovieDetailModel{
@@ -170,8 +158,8 @@ object DataMapper {
             input.title,
             input.description,
             input.video,
-            input.posterPath,
-            input.backdropPath,
+            input.posterPath?:"",
+            input.backdropPath?:"",
             input.releaseDate,
             input.voteAverage
         )

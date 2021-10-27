@@ -1,12 +1,13 @@
 package com.indeep.moviecorner.ui.dialog
 
-import android.R
+
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.indeep.moviecorner.R
 
 class MessageDialogFragment : DialogFragment() {
     companion object {
