@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">MovieCorner</string>
+    <string name="rating">Rating</string>
+    <string name="popular">Popular</string>
+    <string name="genre">Genre</string>
+    <string name="trailer">Trailer</string>
+    <string name="backdrop_image">backdrop_image</string>
+    <string name="poster_image">poster_image</string>
+    <string name="text_dummy">If you enjoy reading my Spoiler-Free reviews, please follow my blog The superhero genre has been growing exponentially during the last decade, so it\'s bizarre to go through an entire year with only Birds of Prey and The New Mutants instead of literally dozens of films from both Marvel and DC. </string>
+    <string name="review">Review</string>
+    <string name="error">Hmmm Something is error</string>
+    <string name="no_review_yet_for_this_movie">No Review Yet For this Movie</string>
+    <string name="ok">OK</string>
 </resources>
